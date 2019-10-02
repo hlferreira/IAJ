@@ -24,12 +24,13 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             this.SlowRadius = 10;
             this.TargetRadius = 5;
             this.Output = new MovementOutput();
+            this.DestinationTarget = base.Target;
         }
 
         public override MovementOutput GetMovement()
         {
 
-            Vector3 direction = this.Target.Position - this.Character.Position;
+            Vector3 direction = this.DestinationTarget.Position - this.Character.Position;
 
             float distance = direction.sqrMagnitude;
 
