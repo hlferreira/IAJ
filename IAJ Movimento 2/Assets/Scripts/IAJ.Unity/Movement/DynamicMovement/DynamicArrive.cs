@@ -11,7 +11,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         public float SlowRadius { get; set; }
         public float TimeToTarget { get; set; }
         public float MaxSpeed { get; set; }
-        public KinematicData DestinationTarget { get; set; }
+        //public KinematicData DestinationTarget { get; set; }
 
         public override string Name
         {
@@ -23,19 +23,22 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             this.TimeToTarget = 0.1f;
             this.SlowRadius = 10;
             this.TargetRadius = 5;
+            this.MaxSpeed = 5;
+
+            //this.DestinationTarget = this.Target;
             this.Output = new MovementOutput();
         }
 
         public override MovementOutput GetMovement()
         {
 
-            Vector3 direction = this.Target.Position - this.Character.Position;
+
+            Vector3 direction = base.Target.Position - base.Character.Position;
 
             float distance = direction.sqrMagnitude;
 
-
             //find the desired speed
-            if (distance < this.TargetRadius * this.TargetRadius)
+            if (distance < this.TargetRadius * this.TargetRadius) 
                 return null;
 
             float TargetSpeed;

@@ -13,11 +13,11 @@ public class MainCharacterController : MonoBehaviour {
 
     public const float X_WORLD_SIZE = 55;
     public const float Z_WORLD_SIZE = 32.5f;
-    private const float MAX_ACCELERATION = 40.0f;
-    private const float MAX_SPEED = 20.0f;
+    private const float MAX_ACCELERATION = 80.0f;
+    private const float MAX_SPEED = 200.0f;
     private const float DRAG = 0.1f;
-    private const float MAX_LOOK_AHEAD = 10.0f;
-    private const float AVOID_MARGIN = 5.0f;
+    private const float MAX_LOOK_AHEAD = 4.0f;
+    private const float AVOID_MARGIN = 4.0f;
 
 
     public KeyCode stopKey = KeyCode.S;
@@ -60,17 +60,19 @@ public class MainCharacterController : MonoBehaviour {
     {
         foreach (var obstacle in obstacles)
         {
-            //TODO: add your AvoidObstacle movement here
-            //var avoidObstacleMovement = new DynamicAvoidObstacle(obstacle)
-            //{
-            //    MaxAcceleration = MAX_ACCELERATION,
-            //    AvoidMargin = AVOID_MARGIN,
-            //    MaxLookAhead = MAX_LOOK_AHEAD,
-            //    Character = this.character.KinematicData,
-            //    DebugColor = Color.magenta
-            //};
-            //this.blendedMovement.Movements.Add(new MovementWithWeight(avoidObstacleMovement, 2.0f));
-            //this.priorityMovement.Movements.Add(avoidObstacleMovement);
+            Debug.Log("aaaaaaaaa");
+
+            Debug.Log(obstacle);
+            var avoidObstacleMovement = new DynamicAvoidObstacle(obstacle)
+            {
+                MaxAcceleration = MAX_ACCELERATION,
+                avoidDistance = AVOID_MARGIN,
+                lookAhead = MAX_LOOK_AHEAD,
+                Character = this.character.KinematicData,
+                DebugColor = Color.magenta
+            };
+            this.blendedMovement.Movements.Add(new MovementWithWeight(avoidObstacleMovement, 2.0f));
+            this.priorityMovement.Movements.Add(avoidObstacleMovement);
         }
 
         foreach (var otherCharacter in characters)
@@ -93,8 +95,12 @@ public class MainCharacterController : MonoBehaviour {
 
         var targetPosition = this.character.KinematicData.Position + (Vector3.zero - this.character.KinematicData.Position) * 2;
 
+        Debug.Log("Main character controler");
+        Debug.Log(this.character.KinematicData.Position);
+        Debug.Log(targetPosition);
         this.patrolMovement = new DynamicPatrol(this.character.KinematicData.Position, targetPosition)
         {
+            
             Character = this.character.KinematicData,
             MaxAcceleration = MAX_ACCELERATION,
             DebugColor = Color.yellow

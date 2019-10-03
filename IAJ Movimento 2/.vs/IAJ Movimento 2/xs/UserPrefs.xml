@@ -1,0 +1,53 @@
+﻿<Properties StartupConfiguration="{A8774867-1559-EE68-988E-DD3D52DFEE95}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/IAJ.Unity/Movement/DynamicMovement/DynamicAvoidCharacter.cs">
+    <Files>
+      <File FileName="Assets/Scripts/IAJ.Unity/Movement/DynamicMovement/DynamicPatrol.cs" Line="9" Column="47" />
+      <File FileName="Assets/Scripts/MainCharacterController.cs" Line="2" Column="1" />
+      <File FileName="Assets/Scripts/IAJ.Unity/Movement/DynamicMovement/DynamicAvoidObstacle.cs" Line="50" Column="91" />
+      <File FileName="Assets/Scripts/IAJ.Unity/Movement/Arbitration/PriorityMovement.cs" Line="69" Column="1" />
+      <File FileName="Assets/Scripts/IAJ.Unity/Movement/StaticData.cs" Line="7" Column="23" />
+      <File FileName="Assets/Scripts/IAJ.Unity/Movement/Movement.cs" Line="5" Column="27" />
+      <File FileName="Assets/Scripts/IAJ.Unity/Movement/Arbitration/BlendedMovement.cs" Line="52" Column="21" />
+      <File FileName="Assets/Scripts/IAJ.Unity/Movement/DynamicMovement/DynamicArrive.cs" Line="38" Column="13" />
+      <File FileName="Assets/Scripts/IAJ.Unity/Util/MathHelper.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/IAJ.Unity/Util/MathConstants.cs" Line="14" Column="35" />
+      <File FileName="Assets/Scripts/IAJ.Unity/Movement/DynamicMovement/DynamicAvoidCharacter.cs" Line="4" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="IAJ Movimento 2" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="IAJ.Unity" expanded="True">
+                  <Node name="Movement" expanded="True">
+                    <Node name="Arbitration" expanded="True" />
+                    <Node name="DynamicMovement" expanded="True">
+                      <Node name="DynamicAvoidCharacter.cs" selected="True" />
+                    </Node>
+                  </Node>
+                  <Node name="Util" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="IAJ Movimento 2" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="277b364f-ce1b-41af-a300-4da27fc5637d" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

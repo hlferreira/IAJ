@@ -36,13 +36,16 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         {
             if (IsTarget1)
             {
-             //   base.DestinationTarget = this.PatrolPosition1;
+                base.Target = this.PatrolPosition1;
             }
             else
             {
-            //    base.DestinationTarget = this.PatrolPosition2;
+                base.Target = this.PatrolPosition2;
             }
-            return base.GetMovement();
+
+            MovementOutput x = base.GetMovement();
+            Debug.Log(x);
+            return x;
         }
     }
 }
