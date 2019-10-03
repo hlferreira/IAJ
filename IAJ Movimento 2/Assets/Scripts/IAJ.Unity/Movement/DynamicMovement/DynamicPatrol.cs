@@ -42,6 +42,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             {
                 base.Target = this.PatrolPosition2;
             }
+ 
 
             MovementOutput x = base.GetMovement();
             Debug.Log(x);

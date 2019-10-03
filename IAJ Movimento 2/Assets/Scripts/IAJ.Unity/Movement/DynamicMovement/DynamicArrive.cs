@@ -32,7 +32,6 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         public override MovementOutput GetMovement()
         {
 
-
             Vector3 direction = base.Target.Position - base.Character.Position;
 
             float distance = direction.sqrMagnitude;

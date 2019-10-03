@@ -20,8 +20,8 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
 
             var relativePos = Target.Position - Character.Position;
             var relativeVel = Target.velocity - Target.velocity;
-            var relativeSpeed = relativeVel.sqrMagnitude();
-            var timetoCollision = (relativePos * relativeVel)/ (relativeSpeed* relativeSpeed)
+            var relativeSpeed = relativeVel.sqrMagnitude;
+            var timetoCollision = (relativePos * relativeVel)/ relativeSpeed
             return base.GetMovement();
         }
     }
