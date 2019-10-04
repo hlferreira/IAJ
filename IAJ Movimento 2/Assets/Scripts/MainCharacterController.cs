@@ -13,11 +13,14 @@ public class MainCharacterController : MonoBehaviour {
 
     public const float X_WORLD_SIZE = 55;
     public const float Z_WORLD_SIZE = 32.5f;
-    private const float MAX_ACCELERATION = 80.0f;
-    private const float MAX_SPEED = 200.0f;
+    private const float MAX_ACCELERATION = 20.0f;
+    private const float MAX_SPEED = 40.0f;
     private const float DRAG = 0.1f;
     private const float MAX_LOOK_AHEAD = 4.0f;
+    private const float MAX_LOOK_AHEAD_CHARACTER = 1.0f;
     private const float AVOID_MARGIN = 4.0f;
+    private const float AVOID_MARGIN_CHARACTER = 1.0f;
+
 
 
     public KeyCode stopKey = KeyCode.S;
@@ -60,9 +63,6 @@ public class MainCharacterController : MonoBehaviour {
     {
         foreach (var obstacle in obstacles)
         {
-            Debug.Log("aaaaaaaaa");
-
-            Debug.Log(obstacle);
             var avoidObstacleMovement = new DynamicAvoidObstacle(obstacle)
             {
                 MaxAcceleration = MAX_ACCELERATION,
@@ -80,24 +80,22 @@ public class MainCharacterController : MonoBehaviour {
             if (otherCharacter != this.character)
             {
                 //TODO: add your AvoidCharacter movement here
-                //var avoidCharacter = new DynamicAvoidCharacter(otherCharacter.KinematicData)
-                //{
-                //    Character = this.character.KinematicData,
-                //    MaxAcceleration = MAX_ACCELERATION,
-                //    AvoidMargin = AVOID_MARGIN,
-                //    DebugColor = Color.cyan
-                //};
+                var avoidCharacter = new DynamicAvoidCharacter(otherCharacter.KinematicData)
+                {
+                    MaxTimeLookAhead = MAX_LOOK_AHEAD_CHARACTER,
+                    Character = this.character.KinematicData,
+                    MaxAcceleration = MAX_ACCELERATION,
+                    avoidDistance = AVOID_MARGIN_CHARACTER,
+                    DebugColor = Color.cyan
+                };
 
-                //this.blendedMovement.Movements.Add(new MovementWithWeight(avoidCharacter, 2.0f));
-                //this.priorityMovement.Movements.Add(avoidCharacter);
+                this.blendedMovement.Movements.Add(new MovementWithWeight(avoidCharacter, 2.0f));
+                this.priorityMovement.Movements.Add(avoidCharacter);
             }
         }
 
         var targetPosition = this.character.KinematicData.Position + (Vector3.zero - this.character.KinematicData.Position) * 2;
 
-        Debug.Log("Main character controler");
-        Debug.Log(this.character.KinematicData.Position);
-        Debug.Log(targetPosition);
         this.patrolMovement = new DynamicPatrol(this.character.KinematicData.Position, targetPosition)
         {
             

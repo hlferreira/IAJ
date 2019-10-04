@@ -45,7 +45,6 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
  
 
             MovementOutput x = base.GetMovement();
-            Debug.Log(x);
             return x;
         }
     }

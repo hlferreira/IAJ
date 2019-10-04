@@ -14,6 +14,7 @@
 
         public override MovementOutput GetMovement()
         {
+
             this.Output.linear = this.Target.Position - this.Character.Position;
 
             if (this.Output.linear.sqrMagnitude > 0)

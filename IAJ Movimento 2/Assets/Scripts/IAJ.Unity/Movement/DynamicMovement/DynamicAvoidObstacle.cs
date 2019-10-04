@@ -25,17 +25,16 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             Ray rayLeftWhisker = new Ray(Character.Position, MathHelper.Rotate2D(Character.velocity.normalized, -(MathConstants.MATH_PI / 6)));
             Ray rayVector = new Ray(Character.Position, Character.velocity.normalized);
 
-            Debug.DrawRay(Character.Position, Character.velocity.normalized);
-            Debug.DrawRay(Character.Position, MathHelper.Rotate2D(Character.velocity.normalized, MathConstants.MATH_PI / 6));
-            Debug.DrawRay(Character.Position, MathHelper.Rotate2D(Character.velocity.normalized, -(MathConstants.MATH_PI / 6)));
+            Debug.DrawRay(Character.Position, Character.velocity.normalized * lookAhead);
+            Debug.DrawRay(Character.Position, MathHelper.Rotate2D(Character.velocity.normalized, MathConstants.MATH_PI / 6) * lookAhead);
+            Debug.DrawRay(Character.Position, MathHelper.Rotate2D(Character.velocity.normalized, -(MathConstants.MATH_PI / 6)) * lookAhead);
 
-            Debug.Log(Character.velocity);
             RaycastHit hitInfo, LeftHitInfo,RightHitInfo;
 
 
             collisionDetector = obstacle.GetComponent<Collider>().Raycast(rayVector, out hitInfo, lookAhead);
-            collisionLeftDetector = obstacle.GetComponent<Collider>().Raycast(rayLeftWhisker, out LeftHitInfo, lookAhead/2);
-            collisionRightDetector = obstacle.GetComponent<Collider>().Raycast(rayRightWhisker, out RightHitInfo, lookAhead/2);
+            collisionLeftDetector = obstacle.GetComponent<Collider>().Raycast(rayLeftWhisker, out LeftHitInfo, lookAhead);
+            collisionRightDetector = obstacle.GetComponent<Collider>().Raycast(rayRightWhisker, out RightHitInfo, lookAhead);
 
             if (!collisionDetector && !collisionLeftDetector && !collisionRightDetector)
             {
