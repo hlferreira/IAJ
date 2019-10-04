@@ -79,7 +79,6 @@ public class MainCharacterController : MonoBehaviour {
         {
             if (otherCharacter != this.character)
             {
-                //TODO: add your AvoidCharacter movement here
                 var avoidCharacter = new DynamicAvoidCharacter(otherCharacter.KinematicData)
                 {
                     MaxTimeLookAhead = MAX_LOOK_AHEAD_CHARACTER,

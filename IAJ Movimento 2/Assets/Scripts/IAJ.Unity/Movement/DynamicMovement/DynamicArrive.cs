@@ -37,8 +37,11 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             float distance = direction.sqrMagnitude;
 
             //find the desired speed
-            if (distance < this.TargetRadius * this.TargetRadius) 
-                return null;
+            if (distance < this.TargetRadius * this.TargetRadius)
+            {
+                this.Character.velocity = Vector3.zero;
+                return new MovementOutput();
+            }
 
             float TargetSpeed;
 
