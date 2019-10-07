@@ -42,6 +42,9 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
            
             Vector3 bestSample = Vector3.zero;
             float minimumPenalty = Mathf.Infinity;
+            Vector3 mainCharacterPosition = Character.Position;
+            Vector3 otherCharacterPosition;
+            Vector3 obstaclePosition;
 
 
             foreach (var sample in samples)
@@ -52,14 +55,15 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
                 //Debug.Log("This code is being profiled");
                 foreach (var c in Characters)
                 {
-                    Vector3 deltaP = c.Position - Character.Position;
+                    otherCharacterPosition = c.Position;
+                    Vector3 deltaP = otherCharacterPosition - mainCharacterPosition;
 
                     if (deltaP.magnitude > IgnoreDistance)
                         continue;
 
                     UnityEngine.Profiling.Profiler.BeginSample("Time to collision");
                     Vector3 rayVector = 2 * sample - Character.velocity - c.velocity;
-                    float time = MathHelper.TimeToCollisionBetweenRayAndCircle(Character.Position, rayVector, c.Position, 2 * CharacterSize);
+                    float time = MathHelper.TimeToCollisionBetweenRayAndCircle(mainCharacterPosition, rayVector, otherCharacterPosition, 2 * CharacterSize);
                     UnityEngine.Profiling.Profiler.EndSample();
 
 
@@ -98,13 +102,14 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
                 //Debug.Log("This code is being profiled");
                 foreach (var o in Obstacles)
                 {
-                    Vector3 deltaP = o.Position - Character.Position;
+                    obstaclePosition = o.Position;
+                    Vector3 deltaP = obstaclePosition - mainCharacterPosition;
 
                     if (deltaP.magnitude > 2*IgnoreDistance)
                         continue;
 
                     Vector3 rayVector = 2 * sample - Character.velocity;
-                    float time = MathHelper.TimeToCollisionBetweenRayAndCircle(Character.Position, rayVector, o.Position, 2 * CharacterSize);
+                    float time = MathHelper.TimeToCollisionBetweenRayAndCircle(mainCharacterPosition, rayVector, obstaclePosition, 2 * CharacterSize);
 
                     float timePenalty;
                     if (time > 0)
@@ -143,7 +148,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
                 }
             }
 
-            Debug.DrawLine(Character.Position, Character.Position + bestSample, Color.magenta);
+            Debug.DrawLine(mainCharacterPosition, mainCharacterPosition + bestSample, Color.magenta);
             
             return bestSample;
          

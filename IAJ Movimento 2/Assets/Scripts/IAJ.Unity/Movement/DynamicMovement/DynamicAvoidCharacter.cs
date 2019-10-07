@@ -24,16 +24,20 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         {
 
             var deltaPos = this.OtherCharacter.Position - Character.Position;
-            var deltaVel = this.OtherCharacter.velocity - Character.velocity;            var deltaSqrSpeed = deltaVel.sqrMagnitude;
+            var deltaVel = this.OtherCharacter.velocity - Character.velocity;
+            var deltaSqrSpeed = deltaVel.sqrMagnitude;
+
             if (deltaSqrSpeed == 0) 
                 return new MovementOutput();
 
-            var timeToClosest = -Vector3.Dot(deltaPos, deltaVel) / deltaSqrSpeed;
+            var timeToClosest = -Vector3.Dot(deltaPos, deltaVel) / deltaSqrSpeed;
+
             if (timeToClosest > MaxTimeLookAhead)
                 return new MovementOutput();
 
             var futureDeltaPos = deltaPos + deltaVel * timeToClosest;
-            var futureDistance = futureDeltaPos.magnitude;
+            var futureDistance = futureDeltaPos.magnitude;
+
             if (futureDistance > 2 * avoidDistance)
                 return new MovementOutput();
 
