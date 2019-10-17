@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 ﻿<behaviortree name="_TemplateName_">
   <sequencer name="root"></sequencer>
+=======
+﻿<behaviortree name="_TemplateName_">
+  <sequencer name="root"></sequencer>
+>>>>>>> 32342d1e6b1bad9cac424f01f79a5163fc7d6324
 </behaviortree>

@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.IAJ.Unity.Pathfinding;
+using Assets.Scripts.IAJ.Unity.Pathfinding;
 using Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics;
 using Assets.Scripts.IAJ.Unity.Pathfinding.Path;
 using UnityEngine;
