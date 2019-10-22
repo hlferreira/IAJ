@@ -9,6 +9,8 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding
 {
     public class AStarPathfinding
     {
+        private int counter;
+
         public NavMeshPathGraph NavMeshGraph { get; protected set; }
         //how many nodes do we process on each call to the search method (assuming this method will be called every frame when there is a pathfinding process active)
         public uint NodesPerFrame { get; set; }
@@ -117,21 +119,36 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding
             if (this.GoalNode == currentNode.node)
             {
                 //Debug.Log("acabou2");
-                solution = CalculateSolution(currentNode, returnPartialSolution);
+                solution = CalculateSolution(currentNode, false);
                 return true;
             }
+
+            if (returnPartialSolution)
+            {
+                solution = CalculateSolution(currentNode, true);
+                return true;
+            }
+
             this.Closed.AddToClosed(currentNode);
 
-            int outConnections = currentNode.node.OutEdgeCount;
-            if (outConnections > 10)
+            uint outConnections = (uint)currentNode.node.OutEdgeCount;
+            if (outConnections > 20)
             {
-                outConnections = 10;
+                outConnections = 20; //max 10 nodes visited each frame
             }
+            this.TotalExploredNodes += outConnections;
+
+            if(Open.CountOpen() > this.MaxOpenNodes)
+            {
+                this.MaxOpenNodes = Open.CountOpen();
+            }
+
             for (int i = 0; i < outConnections; i++)
             {
                 this.ProcessChildNode(currentNode, currentNode.node.EdgeOut(i), i);
             }
 
+            this.TotalProcessingTime += Time.deltaTime; //check later
             solution = null;
             return false;
         }
@@ -180,9 +197,15 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding
             };
             var currentNode = node;
 
-            //node.Position in partial mode
-            path.PathPositions.Add(this.GoalPosition);
-
+            if (path.IsPartial)
+            {
+                path.PathPositions.Add(currentNode.node.Position);
+            }
+            else
+            {
+                //node.Position in partial mode
+                path.PathPositions.Add(this.GoalPosition);
+            }
             //I need to remove the first Node and the last Node because they correspond to the dummy first and last Polygons that were created by the initialization.
             //And we don't want to be forced to go to the center of the initial polygon before starting to move towards my destination.
 
