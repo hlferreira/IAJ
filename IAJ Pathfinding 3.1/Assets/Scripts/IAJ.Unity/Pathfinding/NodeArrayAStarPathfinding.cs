@@ -43,6 +43,21 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding
             }
 
             //TODO: implement the rest of your code here
+            var OpenChild = this.NodeRecordArray.SearchInOpen(childNodeRecord);
+            var ClosedChild = this.NodeRecordArray.SearchInClosed(childNodeRecord);
+            if (childNodeRecord.status == NodeStatus.Unvisited)
+            {
+                this.NodeRecordArray.AddToOpen(childNodeRecord);
+            }
+            else if(childNodeRecord.status == NodeStatus.Open && OpenChild.fValue > childNodeRecord.fValue)
+            {
+                this.NodeRecordArray.Replace(OpenChild, childNodeRecord);
+            }
+            else if (childNodeRecord.status == NodeStatus.Closed && ClosedChild.fValue > childNodeRecord.fValue)
+            {
+                this.NodeRecordArray.RemoveFromClosed(ClosedChild);
+                this.NodeRecordArray.AddToOpen(childNodeRecord);
+            }
         }
             
         private List<NavigationGraphNode> GetNodesHack(NavMeshPathGraph graph)

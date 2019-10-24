@@ -46,8 +46,7 @@ public class PathfindingManager : MonoBehaviour {
 	void Awake ()
 	{
         this.currentClickNumber = 1;
-         
-		this.Initialize(NavigationManager.Instance.NavMeshGraphs[0], new AStarPathfinding(NavigationManager.Instance.NavMeshGraphs[0], new SimpleUnorderedNodeList(), new SimpleUnorderedNodeList(), new EuclideanHeuristic()));
+		this.Initialize(NavigationManager.Instance.NavMeshGraphs[0], new NodeArrayAStarPathFinding(NavigationManager.Instance.NavMeshGraphs[0], new EuclideanHeuristic()));
     }
 
     // Update is called once per frame
@@ -183,9 +182,9 @@ public class PathfindingManager : MonoBehaviour {
 
                 if (this.AStarPathFinding.Closed != null)
                 {
-                    foreach (var nodeRecord in this.AStarPathFinding.Closed.All())
+                    foreach (var dictEntry in this.AStarPathFinding.Closed.All())
                     {
-                        Gizmos.DrawSphere(nodeRecord.node.LocalPosition, 1.0f);
+                        Gizmos.DrawSphere(dictEntry.Key.LocalPosition, 1.0f);
                     }
                 }
             }

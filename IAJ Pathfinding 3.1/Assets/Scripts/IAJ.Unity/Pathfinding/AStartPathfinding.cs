@@ -130,13 +130,13 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding
             }
 
             this.Closed.AddToClosed(currentNode);
+            this.TotalExploredNodes += 1;
 
             uint outConnections = (uint)currentNode.node.OutEdgeCount;
-            if (outConnections > 20)
+            if (outConnections > 50)
             {
-                outConnections = 20; //max 10 nodes visited each frame
+                outConnections = 50; //max 50 nodes visited each frame
             }
-            this.TotalExploredNodes += outConnections;
 
             if(Open.CountOpen() > this.MaxOpenNodes)
             {

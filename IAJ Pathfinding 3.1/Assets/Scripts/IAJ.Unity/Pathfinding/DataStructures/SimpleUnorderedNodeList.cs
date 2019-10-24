@@ -4,7 +4,7 @@ using System.Linq;
 namespace Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures
 {
     //very simple (and unefficient) implementation of the open/closed sets
-    public class SimpleUnorderedNodeList : IOpenSet, IClosedSet
+    public class SimpleUnorderedNodeList : IOpenSet
     {
         private List<NodeRecord> NodeRecords { get; set; }
 
