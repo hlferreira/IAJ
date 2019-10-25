@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures;
 using Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics;
+using Assets.Scripts.IAJ.Unity.Pathfinding.Path;
 using RAIN.Navigation.Graph;
 using RAIN.Navigation.NavMesh;
+using UnityEngine;
 
 namespace Assets.Scripts.IAJ.Unity.Pathfinding
 {
     public class NodeArrayAStarPathFinding : AStarPathfinding
     {
         protected NodeRecordArray NodeRecordArray { get; set; }
+
         public NodeArrayAStarPathFinding(NavMeshPathGraph graph, IHeuristic heuristic) : base(graph,null,null,heuristic)
         {
             //do not change this
@@ -20,12 +23,15 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding
 
         protected override void ProcessChildNode(NodeRecord bestNode, NavigationGraphEdge connectionEdge, int edgeIndex)
         {
-            float f;
-            float g;
-            float h;
+
 
             var childNode = connectionEdge.ToNode;
             var childNodeRecord = this.NodeRecordArray.GetNodeRecord(childNode);
+
+            
+            float g = bestNode.gValue + (childNode.LocalPosition - bestNode.node.LocalPosition).magnitude;
+            float h = base.Heuristic.H(base.StartNode, base.GoalNode);
+
 
             if (childNodeRecord == null)
             {
@@ -42,11 +48,17 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding
                 this.NodeRecordArray.AddSpecialCaseNode(childNodeRecord);
             }
 
-            //TODO: implement the rest of your code here
             var OpenChild = this.NodeRecordArray.SearchInOpen(childNodeRecord);
             var ClosedChild = this.NodeRecordArray.SearchInClosed(childNodeRecord);
+
+
+
             if (childNodeRecord.status == NodeStatus.Unvisited)
             {
+                childNodeRecord.parent = bestNode;
+                childNodeRecord.gValue = g;
+                childNodeRecord.hValue = h;
+                childNodeRecord.fValue = F(childNodeRecord);
                 this.NodeRecordArray.AddToOpen(childNodeRecord);
             }
             else if(childNodeRecord.status == NodeStatus.Open && OpenChild.fValue > childNodeRecord.fValue)
@@ -55,8 +67,12 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding
             }
             else if (childNodeRecord.status == NodeStatus.Closed && ClosedChild.fValue > childNodeRecord.fValue)
             {
+                childNodeRecord.parent = bestNode;
+                childNodeRecord.fValue = F(childNodeRecord);
+
                 this.NodeRecordArray.RemoveFromClosed(ClosedChild);
                 this.NodeRecordArray.AddToOpen(childNodeRecord);
+
             }
         }
             

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using RAIN.Navigation.Graph;
+using UnityEngine;
 
 namespace Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures
 {
@@ -67,8 +68,8 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures
 
         void IClosedSet.Initialize()
         {
-           //TODO implement
-           
+            //TODO implthrow new NotImplementedException();ement
+            //throw new NotImplementedException();
         }
 
         public void AddToOpen(NodeRecord nodeRecord)
@@ -76,21 +77,22 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures
             //TODO implement
             NodeRecords[nodeRecord.node.NodeIndex].status = NodeStatus.Open;
             Open.AddToOpen(nodeRecord);
-            //throw new NotImplementedException();
+            Debug.Log("fvalue ===>   " + nodeRecord.fValue);
+            Debug.Log("gvalue ===>   " + nodeRecord.gValue);
+            Debug.Log("hvalue ===>   " + nodeRecord.hValue);
+            Debug.Log("Parent ==>   " + nodeRecord.parent);
         }
 
         public void AddToClosed(NodeRecord nodeRecord)
         {
             //TODO implement
             NodeRecords[nodeRecord.node.NodeIndex].status = NodeStatus.Closed;
-            //throw new NotImplementedException();
         }
 
         public NodeRecord SearchInOpen(NodeRecord nodeRecord)
         {
             //TODO implement
             return Open.SearchInOpen(nodeRecord);
-            //throw new NotImplementedException();
         }
 
         public NodeRecord SearchInClosed(NodeRecord nodeRecord)
@@ -101,21 +103,18 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures
                 return NodeRecords[nodeRecord.node.NodeIndex];
             }
             else return null;
-            //throw new NotImplementedException();
         }
 
         public NodeRecord GetBestAndRemove()
         {
             //TODO implement
             return Open.GetBestAndRemove();
-            //throw new NotImplementedException();
         }
 
         public NodeRecord PeekBest()
         {
             //TODO implement
             return Open.PeekBest();
-            //throw new NotImplementedException();
         }
 
         public void Replace(NodeRecord nodeToBeReplaced, NodeRecord nodeToReplace)
@@ -126,28 +125,24 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures
             NodeRecords[nodeToReplace.node.NodeIndex].gValue = nodeToBeReplaced.gValue;
             NodeRecords[nodeToReplace.node.NodeIndex].hValue = nodeToBeReplaced.hValue;
             NodeRecords[nodeToReplace.node.NodeIndex].parent = nodeToBeReplaced.parent;
-            //throw new NotImplementedException();
         }
 
         public void RemoveFromOpen(NodeRecord nodeRecord)
         {
             //TODO implement
             Open.RemoveFromOpen(nodeRecord);
-            //throw new NotImplementedException();
         }
 
         public void RemoveFromClosed(NodeRecord nodeRecord)
         {
             //TODO implement
             NodeRecords[nodeRecord.node.NodeIndex].status = NodeStatus.Open;
-            //throw new NotImplementedException();
         }
 
         ICollection<NodeRecord> IOpenSet.All()
         {
             return Open.All();
             //TODO implement
-            //throw new NotImplementedException();
         }
 
         Dictionary<NavigationGraphNode, NodeRecord> IClosedSet.All()
@@ -163,14 +158,12 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures
             }
  
             return ClosedDic;
-            //throw new NotImplementedException();
         }
 
         public int CountOpen()
         {
             //TODO implement
             return Open.CountOpen();
-            //throw new NotImplementedException();
         }
     }
 }
