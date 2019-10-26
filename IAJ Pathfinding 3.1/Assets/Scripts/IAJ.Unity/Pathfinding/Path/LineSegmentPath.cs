@@ -17,19 +17,31 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Path
         public override Vector3 GetPosition(float param)
         {
             //TODO: implement latter
-			throw new NotImplementedException();
+            float decimalParam = param - (float)Math.Truncate(param);
+            return this.StartPosition + decimalParam * this.LineVector;
         }
 
         public override bool PathEnd(float param)
         {
-			//TODO: implement latter
-			throw new NotImplementedException();
+            //TODO: implement latter
+            
+            if (1 - param < 0.05)
+            {
+                return true;
+            }
+            else return false;
         }
 
         public override float GetParam(Vector3 position, float lastParam)
         {
-			//TODO: implement latter
-			throw new NotImplementedException();
+            //TODO: implement latter
+            float param = MathHelper.closestParamInLineSegmentToPoint(this.StartPosition, this.EndPosition, position);
+
+            if (param - lastParam < 0.3)
+            {
+                return param;
+            }
+            else return lastParam + 0.3f;
         }
     }
 }

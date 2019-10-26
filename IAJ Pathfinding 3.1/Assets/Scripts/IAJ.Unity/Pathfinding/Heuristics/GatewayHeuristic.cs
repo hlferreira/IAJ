@@ -11,18 +11,20 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
         private ClusterGraph graph;
         public GatewayHeuristic()
         {
-           // AssetDatabase.LoadAssetAtPath("Assets/Textures/texture.jpg")
-            this.graph = (ClusterGraph) AssetDatabase.LoadAssetAtPath("Assets/Resources/ClusterGraph.asset", typeof(ClusterGraph));
+            //AssetDatabase.LoadAssetAtPath("Assets/Textures/texture.jpg")
+            //this.graph = (ClusterGraph) AssetDatabase.LoadAssetAtPath("Assets/Resources/ClusterGraph.asset", typeof(ClusterGraph));
             //Resources.Load("ClusterGraph");
-
+            this.graph = Resources.Load<ClusterGraph>("ClusterGraph");
             Debug.Log("gsadgadsg  " + this.graph.gatewayDistanceTable);
         }
 
         public float H(NavigationGraphNode node, NavigationGraphNode goalNode)
         {
             Cluster nodeCluster= graph.Quantize(node);
-            Cluster nodeGoalCluster = graph.Quantize(node);
-            if(nodeCluster.center.Equals(nodeGoalCluster.center))
+            Cluster nodeGoalCluster = graph.Quantize(goalNode);
+            //Debug.Log("DISTS====" + nodeCluster.center + nodeGoalCluster.center);
+            bool check = nodeCluster.center.Equals(nodeGoalCluster.center);
+            if (check)
             {
                 return (node.Position - goalNode.Position).magnitude;
             }
@@ -32,8 +34,10 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
                 List<Gateway> nodeGoalClusterGateways = nodeGoalCluster.gateways;
 
                 float min = 10000f;
+                Gateway gateMin = new Gateway();
+                Gateway gate2Min = new Gateway();
 
-                foreach(Gateway gate in nodeClusterGateways)
+                foreach (Gateway gate in nodeClusterGateways)
                 {
                     foreach(Gateway gate2 in nodeGoalClusterGateways)
                     {
@@ -41,10 +45,16 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
                         if (distance < min)
                         {
                             min = distance;
+                            gateMin = gate;
+                            gate2Min = gate2;
                         }
                     }
                 }
-                return min;
+                
+                float hNode = (node.Position - gateMin.center).magnitude;
+                float hGoal = (goalNode.Position - gate2Min.center).magnitude;
+
+                return hNode + min + hGoal;
 
 
             }

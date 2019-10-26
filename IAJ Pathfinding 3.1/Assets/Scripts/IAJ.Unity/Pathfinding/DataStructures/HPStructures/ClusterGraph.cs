@@ -20,11 +20,12 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures.HPStructures
 
         public Cluster Quantize(NavigationGraphNode node)
         {
-            foreach(Cluster c in clusters)
+            foreach(Cluster c in this.clusters)
             {
-                if (node.Position.x > c.min.x && node.Position.z > c.min.z && node.Position.x < c.max.x && node.Position.z < c.max.z)
+                if (node.Position.x + 5 >= c.min.x && node.Position.z + 5 >= c.min.z && node.Position.x - 5 <= c.max.x && node.Position.z - 5 <= c.max.z)
                     return c;
             }
+            Debug.Log(" NUUUULLLLLLLLLLLLL " + node.Position);
             return null;
         }
 

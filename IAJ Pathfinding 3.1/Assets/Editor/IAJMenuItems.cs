@@ -72,12 +72,13 @@ public class IAJMenuItems  {
         //TODO implement the rest of the algorithm here, i.e. build the GatewayDistanceTable
 
         //GatewayDistanceTableRow row = new GatewayDistanceTableRow();
-        GatewayDistanceTableRow row = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
-        row.entries = new GatewayDistanceTableEntry[clusterGraph.gateways.Count];
+        
 
         int j = 0;
         foreach (Gateway gate in clusterGraph.gateways)
         {
+            GatewayDistanceTableRow row = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
+            row.entries = new GatewayDistanceTableEntry[clusterGraph.gateways.Count];
             int i = 0;
             foreach (Gateway gate2 in clusterGraph.gateways)
             {
@@ -97,7 +98,7 @@ public class IAJMenuItems  {
                     row.entries[i].endGatewayPosition = gate2.center;
                     row.entries[i].shortestDistance = cost;
 
-                    //Debug.Log("======================================!!!!!!!!!!!!!!!!!!!!" + row.entries[i].startGatewayPosition);
+                    //Debug.Log("======================================!!!!!!!!!!!!!!!!!!!!" + row.entries[i].startGatewayPosition + gate.center);
                     //Debug.Log("======================================\\\\\\\\\\\\\\\\\\\\" + row.entries[i].endGatewayPosition);
 
                 }
@@ -116,10 +117,12 @@ public class IAJMenuItems  {
             }
             clusterGraph.gatewayDistanceTable[j] = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
             clusterGraph.gatewayDistanceTable[j] = row;
-
+            
             //Debug.Log("j========  " + j);
-            //Debug.Log("aaaaaaaaaaaaaaaaaaaa====== " + clusterGraph.gatewayDistanceTable[j].entries[i-1].startGatewayPosition);
-
+            if (j > 0)
+            {
+                Debug.Log("aaaaaaaaaaaaaaaaaaaa====== " + clusterGraph.gatewayDistanceTable[1].entries[2].startGatewayPosition + row.entries[2].startGatewayPosition);
+            }
             j++;
         }
 
