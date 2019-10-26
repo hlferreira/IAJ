@@ -1,4 +1,4 @@
-using RAIN.Navigation.Graph;
+﻿using RAIN.Navigation.Graph;
 
 namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
 {

@@ -46,7 +46,7 @@ public class PathfindingManager : MonoBehaviour {
 	void Awake ()
 	{
         this.currentClickNumber = 1;
-		this.Initialize(NavigationManager.Instance.NavMeshGraphs[0], new NodeArrayAStarPathFinding(NavigationManager.Instance.NavMeshGraphs[0], new EuclideanHeuristic()));
+		this.Initialize(NavigationManager.Instance.NavMeshGraphs[0], new NodeArrayAStarPathFinding(NavigationManager.Instance.NavMeshGraphs[0], new GatewayHeuristic()));
     }
 
     // Update is called once per frame

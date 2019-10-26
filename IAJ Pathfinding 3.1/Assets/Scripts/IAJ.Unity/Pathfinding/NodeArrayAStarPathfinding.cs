@@ -21,16 +21,15 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding
             this.Closed = this.NodeRecordArray;
         }
 
+
         protected override void ProcessChildNode(NodeRecord bestNode, NavigationGraphEdge connectionEdge, int edgeIndex)
         {
 
 
             var childNode = connectionEdge.ToNode;
             var childNodeRecord = this.NodeRecordArray.GetNodeRecord(childNode);
-
-            
             float g = bestNode.gValue + (childNode.LocalPosition - bestNode.node.LocalPosition).magnitude;
-            float h = base.Heuristic.H(base.StartNode, base.GoalNode);
+            float h = base.Heuristic.H(childNode, base.GoalNode);
 
 
             if (childNodeRecord == null)

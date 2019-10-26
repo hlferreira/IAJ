@@ -67,6 +67,11 @@
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\GoalBounding\Bounds.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\GoalBounding\GoalBoundingTable.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\GoalBounding\NodeGoalBounds.cs" />
+    <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\HPStructures\Cluster.cs" />
+    <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\HPStructures\ClusterGraph.cs" />
+    <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\HPStructures\Gateway.cs" />
+    <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\HPStructures\GatewayDistanceTableEntry.cs" />
+    <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\HPStructures\GatewayDistanceTableRow.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\IClosedSet.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\IOpenSet.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\LeftPriorityList.cs" />
@@ -78,6 +83,7 @@
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\GoalBounding\GoalBoundingPathfinding.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\GoalBounding\GoalBoundsDijkstraMapFlooding.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\Heuristics\EuclideanHeruistic.cs" />
+    <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\Heuristics\GatewayHeuristic.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\Heuristics\IHeuristic.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\Heuristics\ZeroHeuristic.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\NodeArrayAStarPathfinding.cs" />

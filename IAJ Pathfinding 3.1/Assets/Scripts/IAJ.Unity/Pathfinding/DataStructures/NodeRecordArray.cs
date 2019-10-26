@@ -68,7 +68,7 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures
 
         void IClosedSet.Initialize()
         {
-            //TODO implthrow new NotImplementedException();ement
+            //TODO implthrow new NotImplementedException();
             //throw new NotImplementedException();
         }
 
@@ -77,10 +77,6 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures
             //TODO implement
             NodeRecords[nodeRecord.node.NodeIndex].status = NodeStatus.Open;
             Open.AddToOpen(nodeRecord);
-            Debug.Log("fvalue ===>   " + nodeRecord.fValue);
-            Debug.Log("gvalue ===>   " + nodeRecord.gValue);
-            Debug.Log("hvalue ===>   " + nodeRecord.hValue);
-            Debug.Log("Parent ==>   " + nodeRecord.parent);
         }
 
         public void AddToClosed(NodeRecord nodeRecord)
@@ -120,11 +116,12 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures
         public void Replace(NodeRecord nodeToBeReplaced, NodeRecord nodeToReplace)
         {
             //TODO implement
-            Open.Replace(nodeToBeReplaced, nodeToReplace);
+            
             NodeRecords[nodeToReplace.node.NodeIndex].fValue = nodeToBeReplaced.fValue;
             NodeRecords[nodeToReplace.node.NodeIndex].gValue = nodeToBeReplaced.gValue;
             NodeRecords[nodeToReplace.node.NodeIndex].hValue = nodeToBeReplaced.hValue;
             NodeRecords[nodeToReplace.node.NodeIndex].parent = nodeToBeReplaced.parent;
+            Open.Replace(nodeToBeReplaced, nodeToReplace);
         }
 
         public void RemoveFromOpen(NodeRecord nodeRecord)
