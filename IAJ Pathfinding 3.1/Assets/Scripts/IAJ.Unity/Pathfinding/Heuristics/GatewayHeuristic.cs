@@ -11,9 +11,11 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
         private ClusterGraph graph;
         public GatewayHeuristic()
         {
-            this.graph = (ClusterGraph) Resources.Load("ClusterGraph");
+           // AssetDatabase.LoadAssetAtPath("Assets/Textures/texture.jpg")
+            this.graph = (ClusterGraph) AssetDatabase.LoadAssetAtPath("Assets/Resources/ClusterGraph.asset", typeof(ClusterGraph));
+            //Resources.Load("ClusterGraph");
 
-            //Debug.Log("gsadgadsg  " + this.graph.gatewayDistanceTable[0].entries[0].shortestDistance);
+            Debug.Log("gsadgadsg  " + this.graph.gatewayDistanceTable);
         }
 
         public float H(NavigationGraphNode node, NavigationGraphNode goalNode)

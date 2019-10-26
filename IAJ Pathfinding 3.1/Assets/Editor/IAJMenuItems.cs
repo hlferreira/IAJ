@@ -71,16 +71,15 @@ public class IAJMenuItems  {
 
         //TODO implement the rest of the algorithm here, i.e. build the GatewayDistanceTable
 
-
-
-        GatewayDistanceTableRow row = new GatewayDistanceTableRow();
+        //GatewayDistanceTableRow row = new GatewayDistanceTableRow();
+        GatewayDistanceTableRow row = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
         row.entries = new GatewayDistanceTableEntry[clusterGraph.gateways.Count];
 
         int j = 0;
-        foreach (var gate in clusterGraph.gateways)
+        foreach (Gateway gate in clusterGraph.gateways)
         {
             int i = 0;
-            foreach (var gate2 in clusterGraph.gateways)
+            foreach (Gateway gate2 in clusterGraph.gateways)
             {
                 if(!gate.center.Equals(gate2.center))
                 {
@@ -91,44 +90,54 @@ public class IAJMenuItems  {
                     }
                     cost = solution.Length;
                     solution = null;
-                    //Debug.Log("======================================        " + gate.center);
-                    //Debug.Log("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\        " + gate2.center);
 
+                    row.entries[i] = ScriptableObject.CreateInstance<GatewayDistanceTableEntry>();
 
-                    row.entries[i] = new GatewayDistanceTableEntry
-                    {
-                        startGatewayPosition = gate.center,
-                        endGatewayPosition = gate2.center,
-                        shortestDistance = cost
-                    };
-                    i++;
+                    row.entries[i].startGatewayPosition = gate.center;
+                    row.entries[i].endGatewayPosition = gate2.center;
+                    row.entries[i].shortestDistance = cost;
+
+                    //Debug.Log("======================================!!!!!!!!!!!!!!!!!!!!" + row.entries[i].startGatewayPosition);
+                    //Debug.Log("======================================\\\\\\\\\\\\\\\\\\\\" + row.entries[i].endGatewayPosition);
+
                 }
-                
+                else
+                {
+                    row.entries[i] = ScriptableObject.CreateInstance<GatewayDistanceTableEntry>();
+
+                    row.entries[i].startGatewayPosition = gate.center;
+                    row.entries[i].endGatewayPosition = gate2.center;
+                    row.entries[i].shortestDistance = 0;
+
+                }
+                i++;
+
 
             }
-            clusterGraph.gatewayDistanceTable[j] = new GatewayDistanceTableRow();
+            clusterGraph.gatewayDistanceTable[j] = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
             clusterGraph.gatewayDistanceTable[j] = row;
+
+            //Debug.Log("j========  " + j);
+            //Debug.Log("aaaaaaaaaaaaaaaaaaaa====== " + clusterGraph.gatewayDistanceTable[j].entries[i-1].startGatewayPosition);
+
             j++;
         }
 
-        Debug.Log("aaaaaaaaaaaaaaaaaaaa====== " + clusterGraph.gatewayDistanceTable[0].entries[0].startGatewayPosition);
-        Debug.Log("bbbbbbbbbbbbbbbbbbbbbbbb====== " + clusterGraph.gatewayDistanceTable[1].entries[0].startGatewayPosition);
-
+       
         //foreach (var a in clusterGraph.gatewayDistanceTable)
-        //{
-        //    foreach(var b in a.entries)
-        //    {
-        //        Debug.Log("shortestDistance =        " + b.shortestDistance);
-        //        Debug.Log("startGatewayPosition =        " + b.startGatewayPosition);
-        //        Debug.Log("endGatewayPosition =        " + b.endGatewayPosition);
+       //{
+       //    foreach(var b in a.entries)
+       //    {
+       //        Debug.Log("shortestDistance =        " + b.shortestDistance);
+       //        Debug.Log("startGatewayPosition =        " + b.startGatewayPosition);
+       //        Debug.Log("endGatewayPosition =        " + b.endGatewayPosition);
 
-        //    }
-        //    Debug.Log("ACABOU ENTRYYYYYYYYYYYYYYYY\n\n");
+       //    }
+       //    Debug.Log("ACABOU ENTRYYYYYYYYYYYYYYYY\n\n");
+       //}
 
-        //}
-
-        //create a new asset that will contain the ClusterGraph and save it to disk (DO NOT REMOVE THIS LINE)
-        clusterGraph.SaveToAssetDatabase();
+       //create a new asset that will contain the ClusterGraph and save it to disk (DO NOT REMOVE THIS LINE)
+       clusterGraph.SaveToAssetDatabase();
     }
 
 
