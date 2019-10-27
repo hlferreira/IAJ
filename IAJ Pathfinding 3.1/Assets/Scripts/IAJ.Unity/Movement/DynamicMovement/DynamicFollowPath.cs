@@ -17,7 +17,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         public DynamicFollowPath()
         {
             this.path = new GlobalPath();
-            this.pathOffset = 0.2f;
+            this.pathOffset = 0.5f;
             this.currentParam = 0;
             //Debug.Log(base.Character.Position);
 

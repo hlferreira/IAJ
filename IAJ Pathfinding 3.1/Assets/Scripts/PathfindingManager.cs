@@ -148,7 +148,7 @@ public class PathfindingManager : MonoBehaviour {
             if (this.dynamicFollowPath.path.PathEnd(this.dynamicFollowPath.currentParam))
             {
                 //ignore because it reached the end
-                Debug.Log("ACABOUUUOUOUOAUOUSDAOISUD");
+                Debug.Log("ACABOU");
             }
             else
             {

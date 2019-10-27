@@ -64,7 +64,7 @@ public class IAJMenuItems  {
         Gateway startGate;
         Gateway endGate;
 
-         var pathfindingManager = new PathfindingManager();
+        var pathfindingManager = new PathfindingManager();
         pathfindingManager.Initialize(navMesh, new NodeArrayAStarPathFinding(navMesh, new EuclideanHeuristic()));
 
         AStarPathfinding pathfinding = new NodeArrayAStarPathFinding(navMesh, new EuclideanHeuristic());
