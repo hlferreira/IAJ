@@ -15,7 +15,6 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
             //this.graph = (ClusterGraph) AssetDatabase.LoadAssetAtPath("Assets/Resources/ClusterGraph.asset", typeof(ClusterGraph));
             //Resources.Load("ClusterGraph");
             this.graph = Resources.Load<ClusterGraph>("ClusterGraph");
-            Debug.Log("gsadgadsg  " + this.graph.gatewayDistanceTable);
         }
 
         public float H(NavigationGraphNode node, NavigationGraphNode goalNode)

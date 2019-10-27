@@ -7,6 +7,7 @@ using RAIN.Navigation.NavMesh;
 using RAIN.Navigation.Graph;
 using UnityEditor;
 using Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures;
+using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
 
 public class PathfindingManager : MonoBehaviour {
 
@@ -21,14 +22,22 @@ public class PathfindingManager : MonoBehaviour {
     public GameObject p5;
     public GameObject p6;
 
-	//private fields for internal use only
-	private Vector3 startPosition;
+    public DynamicCharacter character;
+
+    public DynamicFollowPath dynamicFollowPath;
+
+
+    //private fields for internal use only
+    private Vector3 startPosition;
 	private Vector3 endPosition;
 	private NavMeshPathGraph navMesh;
     private int currentClickNumber;
     
     private GlobalPath currentSolution;
     private bool draw;
+
+    private int finishCounter = 0;
+    private bool followThePath = false;
 
     //public properties
     public AStarPathfinding AStarPathFinding { get; private set; }
@@ -47,6 +56,13 @@ public class PathfindingManager : MonoBehaviour {
 	{
         this.currentClickNumber = 1;
 		this.Initialize(NavigationManager.Instance.NavMeshGraphs[0], new NodeArrayAStarPathFinding(NavigationManager.Instance.NavMeshGraphs[0], new GatewayHeuristic()));
+        this.character = new DynamicCharacter(this.gameObject);
+        this.dynamicFollowPath = new DynamicFollowPath
+        {
+            Character = this.character.KinematicData,
+            Target = this.character.KinematicData
+            //MaxAcceleration = 0.2f
+        };
     }
 
     // Update is called once per frame
@@ -113,7 +129,9 @@ public class PathfindingManager : MonoBehaviour {
 	        var finished = this.AStarPathFinding.Search(out this.currentSolution, false);
             if(finished)
             {
+                followThePath = true;
                 this.AStarPathFinding.InProgress = false;
+                this.dynamicFollowPath.setPath(this.currentSolution);
             }
 	    }
         if (Input.GetKeyDown(KeyCode.Space))
@@ -122,6 +140,23 @@ public class PathfindingManager : MonoBehaviour {
             if (finished)
             {
                 this.AStarPathFinding.InProgress = false;
+            }
+        }
+        if (followThePath)
+        {
+            if (this.dynamicFollowPath.path.PathEnd(this.dynamicFollowPath.currentParam))
+            {
+                //ignore because it reached the end
+                Debug.Log("ACABOUUUOUOUOAUOUSDAOISUD");
+            }
+            else
+            {
+                this.character.Movement = this.dynamicFollowPath;
+                
+                if (this.character.Movement != null)
+                {
+                    this.character.Update();
+                }
             }
         }
 	}

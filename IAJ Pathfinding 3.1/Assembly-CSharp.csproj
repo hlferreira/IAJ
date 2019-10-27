@@ -85,7 +85,6 @@
     <Compile Include="Assets\Scripts\IAJ.Unity\Movement\Movement.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Movement\MovementOutput.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Movement\StaticData.cs" />
-    <Compile Include="Assets\Scripts\IAJ.Unity\Movement\VO\RVOMovement.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\AStartPathfinding.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\ClosedDict.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\GoalBounding\Bounds.cs" />

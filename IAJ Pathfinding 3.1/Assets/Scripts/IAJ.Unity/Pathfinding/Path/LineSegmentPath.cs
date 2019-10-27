@@ -36,12 +36,8 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Path
         {
             //TODO: implement latter
             float param = MathHelper.closestParamInLineSegmentToPoint(this.StartPosition, this.EndPosition, position);
-
-            if (param - lastParam < 0.3)
-            {
-                return param;
-            }
-            else return lastParam + 0.3f;
+            
+            return param;
         }
     }
 }
