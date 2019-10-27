@@ -22,7 +22,6 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             {
                 this.Output.linear.Normalize();
                 this.Output.linear *= this.MaxAcceleration;
-                Debug.Log("OUTPUT = " + this.Output.linear);
             }
 
             return this.Output;

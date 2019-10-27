@@ -18,6 +18,7 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Path
         {
             //TODO: implement latter
             float decimalParam = param - (float)Math.Truncate(param);
+ 
             return this.StartPosition + decimalParam * this.LineVector;
         }
 
@@ -25,7 +26,7 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Path
         {
             //TODO: implement latter
             
-            if (1 - param < 0.05)
+            if (1 - param < 0.2)
             {
                 return true;
             }

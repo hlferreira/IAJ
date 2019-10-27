@@ -8,6 +8,7 @@ using RAIN.Navigation.Graph;
 using UnityEditor;
 using Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures;
 using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
+using Assets.Scripts.IAJ.Unity.Movement;
 
 public class PathfindingManager : MonoBehaviour {
 
@@ -60,8 +61,8 @@ public class PathfindingManager : MonoBehaviour {
         this.dynamicFollowPath = new DynamicFollowPath
         {
             Character = this.character.KinematicData,
-            Target = this.character.KinematicData
-            //MaxAcceleration = 0.2f
+            Target = new KinematicData(),
+            MaxAcceleration = 5.0f
         };
     }
 
@@ -131,7 +132,7 @@ public class PathfindingManager : MonoBehaviour {
             {
                 followThePath = true;
                 this.AStarPathFinding.InProgress = false;
-                this.dynamicFollowPath.setPath(this.currentSolution);
+                this.dynamicFollowPath.SetPath(this.currentSolution);
             }
 	    }
         if (Input.GetKeyDown(KeyCode.Space))

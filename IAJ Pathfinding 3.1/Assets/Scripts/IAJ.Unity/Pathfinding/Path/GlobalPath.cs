@@ -29,7 +29,7 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Path
             int localPathIndex = (int)Math.Truncate(previousParam);
             if (localPathIndex + 2 < this.PathPositions.Count)
             {
-                Debug.Log("TRYYYYYYYYYYYYYY");
+                //Debug.Log("TRYYYYYYYYYYYYYY");
                 LineSegmentPath segment = new LineSegmentPath(PathPositions[localPathIndex], PathPositions[localPathIndex + 1]);
 
                 LineSegmentPath segment2 = new LineSegmentPath(PathPositions[localPathIndex + 1], PathPositions[localPathIndex + 2]);
@@ -46,7 +46,7 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Path
             }
             else if (localPathIndex == this.PathPositions.Count - 2)
             {
-                Debug.Log("catchchchchch");
+                //Debug.Log("catchchchchch");
                 LineSegmentPath segment = new LineSegmentPath(PathPositions[localPathIndex], PathPositions[localPathIndex + 1]);
 
                 return localPathIndex + segment.GetParam(position, previousParam);
@@ -71,7 +71,7 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Path
         public override bool PathEnd(float param)
         {
             //TODO: implement latter
-            if ((Length - param) < 0.4)
+            if ((Length - param) < 1)
                 return true;
             else return false;
         }
