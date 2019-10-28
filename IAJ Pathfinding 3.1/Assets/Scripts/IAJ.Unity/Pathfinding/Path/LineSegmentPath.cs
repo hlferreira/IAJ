@@ -26,7 +26,7 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Path
         {
             //TODO: implement latter
             
-            if (1 - param < 0.2)
+            if (1 - param < 0.1)
             {
                 return true;
             }
@@ -37,6 +37,10 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Path
         {
             //TODO: implement latter
             float param = MathHelper.closestParamInLineSegmentToPoint(this.StartPosition, this.EndPosition, position);
+            if (param > lastParam + 0.2)
+            {
+                param = lastParam + 0.05f;
+            }
             
             return param;
         }

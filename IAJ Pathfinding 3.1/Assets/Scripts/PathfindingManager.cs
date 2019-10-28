@@ -62,7 +62,7 @@ public class PathfindingManager : MonoBehaviour {
         {
             Character = this.character.KinematicData,
             Target = new KinematicData(),
-            MaxAcceleration = 5.0f
+            MaxAcceleration = 90.0f
         };
     }
 
@@ -133,6 +133,8 @@ public class PathfindingManager : MonoBehaviour {
                 followThePath = true;
                 this.AStarPathFinding.InProgress = false;
                 this.dynamicFollowPath.SetPath(this.currentSolution);
+                this.dynamicFollowPath.finished = false;
+                this.dynamicFollowPath.currentParam = 0;
             }
 	    }
         if (Input.GetKeyDown(KeyCode.Space))
@@ -145,10 +147,10 @@ public class PathfindingManager : MonoBehaviour {
         }
         if (followThePath)
         {
-            if (this.dynamicFollowPath.path.PathEnd(this.dynamicFollowPath.currentParam))
+            if (this.dynamicFollowPath.finished == true)
             {
                 //ignore because it reached the end
-                Debug.Log("ACABOU");
+                //Debug.Log("ACABOU");
             }
             else
             {

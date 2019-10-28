@@ -71,8 +71,14 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Path
         public override bool PathEnd(float param)
         {
             //TODO: implement latter
-            if ((Length - param) < 1)
-                return true;
+            int localPathIndex = (int)Math.Truncate(param);
+            float decimalParam = param - localPathIndex;
+            if (localPathIndex == this.PathPositions.Count - 2)
+            {
+                LineSegmentPath segment = new LineSegmentPath(PathPositions[localPathIndex], PathPositions[localPathIndex + 1]);
+                return segment.PathEnd(decimalParam);
+            }
+
             else return false;
         }
     }

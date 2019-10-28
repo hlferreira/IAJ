@@ -3,6 +3,7 @@ using Assets.Scripts.IAJ.Unity.Pathfinding.DataStructures.HPStructures;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
 {
@@ -33,15 +34,16 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
                 List<Gateway> nodeGoalClusterGateways = nodeGoalCluster.gateways;
 
                 float min = 10000f;
-                Gateway gateMin = new Gateway();
-                Gateway gate2Min = new Gateway();
-
+                Gateway gateMin = ScriptableObject.CreateInstance<Gateway>();
+                Gateway gate2Min = ScriptableObject.CreateInstance<Gateway>();
                 foreach (Gateway gate in nodeClusterGateways)
                 {
                     foreach(Gateway gate2 in nodeGoalClusterGateways)
                     {
                         float distance = graph.gatewayDistanceTable[gate.id].entries[gate2.id].shortestDistance;
-                        if (distance < min)
+                        //Debug.Log("DISTANCEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE =  " + distance);
+                        //Debug.Log("NODENODENODENODEONDEO:    " + 5 * (Math.Abs((nodeCluster.center - nodeGoalCluster.center).x) + Math.Abs((nodeCluster.center - nodeGoalCluster.center).z)));
+                        if(distance < min)
                         {
                             min = distance;
                             gateMin = gate;
@@ -52,7 +54,7 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
                 
                 float hNode = (node.Position - gateMin.center).magnitude;
                 float hGoal = (goalNode.Position - gate2Min.center).magnitude;
-
+                Debug.Log("MINNNN: " + min);
                 return hNode + min + hGoal;
 
 

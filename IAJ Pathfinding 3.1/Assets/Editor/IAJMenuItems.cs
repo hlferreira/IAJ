@@ -63,6 +63,8 @@ public class IAJMenuItems  {
         float cost;
         Gateway startGate;
         Gateway endGate;
+        Vector3 startGatewayPos;
+        Vector3 endGatewayPos;
 
         var pathfindingManager = new PathfindingManager();
         pathfindingManager.Initialize(navMesh, new NodeArrayAStarPathFinding(navMesh, new EuclideanHeuristic()));
@@ -73,76 +75,136 @@ public class IAJMenuItems  {
 
         //GatewayDistanceTableRow row = new GatewayDistanceTableRow();
         
-
-        int j = 0;
-        foreach (Gateway gate in clusterGraph.gateways)
+        //OPTIMIZED VERSION
+        for (int i = 0; i < clusterGraph.gateways.Count; ++i)
         {
             GatewayDistanceTableRow row = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
             row.entries = new GatewayDistanceTableEntry[clusterGraph.gateways.Count];
-            int i = 0;
-            foreach (Gateway gate2 in clusterGraph.gateways)
+            row.entries[i] = ScriptableObject.CreateInstance<GatewayDistanceTableEntry>();
+
+            row.entries[i].startGatewayPosition = clusterGraph.gateways[i].center;
+            row.entries[i].endGatewayPosition = clusterGraph.gateways[i].center;
+            row.entries[i].shortestDistance = 0;
+
+            for(int j = i + 1; j < clusterGraph.gateways.Count; ++j)
             {
-                if(!gate.center.Equals(gate2.center))
+                startGatewayPos = clusterGraph.gateways[i].center;
+                endGatewayPos = clusterGraph.gateways[j].center;
+                pathfinding.InitializePathfindingSearch(startGatewayPos, endGatewayPos);
+                while (solution == null)
                 {
-                    pathfinding.InitializePathfindingSearch(gate.center, gate2.center);
-                    while (solution == null)
-                    {
-                        bool finished = pathfinding.Search(out solution, false);
-                    }
-                    cost = solution.Length;
-                    solution = null;
-
-                    row.entries[i] = ScriptableObject.CreateInstance<GatewayDistanceTableEntry>();
-
-                    row.entries[i].startGatewayPosition = gate.center;
-                    row.entries[i].endGatewayPosition = gate2.center;
-                    row.entries[i].shortestDistance = cost;
-
-                    //Debug.Log("======================================!!!!!!!!!!!!!!!!!!!!" + row.entries[i].startGatewayPosition + gate.center);
-                    //Debug.Log("======================================\\\\\\\\\\\\\\\\\\\\" + row.entries[i].endGatewayPosition);
-
+                    bool finished = pathfinding.Search(out solution, false);
                 }
-                else
+
+                List<Vector3> pathPos = solution.PathPositions;
+                cost = 0;
+                for (int k = 0; k < pathPos.Count - 1; ++k)
                 {
-                    row.entries[i] = ScriptableObject.CreateInstance<GatewayDistanceTableEntry>();
-
-                    row.entries[i].startGatewayPosition = gate.center;
-                    row.entries[i].endGatewayPosition = gate2.center;
-                    row.entries[i].shortestDistance = 0;
-
+                    cost += (pathPos[k + 1] - pathPos[k]).magnitude;
                 }
-                i++;
 
+                solution = null;
 
+                row.entries[j] = ScriptableObject.CreateInstance<GatewayDistanceTableEntry>();
+
+                row.entries[j].startGatewayPosition = startGatewayPos;
+                row.entries[j].endGatewayPosition = endGatewayPos;
+                row.entries[j].shortestDistance = cost;
             }
-            clusterGraph.gatewayDistanceTable[j] = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
-            clusterGraph.gatewayDistanceTable[j] = row;
-            
-            //Debug.Log("j========  " + j);
-            if (j > 0)
+            for(int k = 0; k < i; ++k)
             {
-                Debug.Log("aaaaaaaaaaaaaaaaaaaa====== " + clusterGraph.gatewayDistanceTable[1].entries[2].startGatewayPosition + row.entries[2].startGatewayPosition);
+                row.entries[k] = ScriptableObject.CreateInstance<GatewayDistanceTableEntry>();
+
+                row.entries[k].startGatewayPosition = clusterGraph.gatewayDistanceTable[k].entries[i].endGatewayPosition;
+                row.entries[k].endGatewayPosition = clusterGraph.gatewayDistanceTable[k].entries[i].startGatewayPosition;
+                row.entries[k].shortestDistance = clusterGraph.gatewayDistanceTable[k].entries[i].shortestDistance;
+
+                Debug.Log(row.entries[k].shortestDistance + " " + clusterGraph.gatewayDistanceTable[k].entries[i].shortestDistance);
             }
-            j++;
+            clusterGraph.gatewayDistanceTable[i] = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
+            clusterGraph.gatewayDistanceTable[i] = row;
         }
 
-       
+        //int j = 0;
+        //foreach (Gateway gate in clusterGraph.gateways)
+        //{
+        //    GatewayDistanceTableRow row = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
+        //    row.entries = new GatewayDistanceTableEntry[clusterGraph.gateways.Count];
+        //    int i = 0;
+        //    foreach (Gateway gate2 in clusterGraph.gateways)
+        //    {
+        //        if(!gate.center.Equals(gate2.center))
+        //        {
+        //            pathfinding.InitializePathfindingSearch(gate.center, gate2.center);
+        //            while (solution == null)
+        //            {
+        //                bool finished = pathfinding.Search(out solution, false);
+        //            }
+        //            cost = solution.Length;
+        //            solution = null;
+
+        //            row.entries[i] = ScriptableObject.CreateInstance<GatewayDistanceTableEntry>();
+
+        //            row.entries[i].startGatewayPosition = gate.center;
+        //            row.entries[i].endGatewayPosition = gate2.center;
+        //            row.entries[i].shortestDistance = cost;
+
+        //            //Debug.Log("======================================!!!!!!!!!!!!!!!!!!!!" + row.entries[i].startGatewayPosition + gate.center);
+        //            //Debug.Log("======================================\\\\\\\\\\\\\\\\\\\\" + row.entries[i].endGatewayPosition);
+
+        //        }
+        //        else
+        //        {
+        //            row.entries[i] = ScriptableObject.CreateInstance<GatewayDistanceTableEntry>();
+
+        //            row.entries[i].startGatewayPosition = gate.center;
+        //            row.entries[i].endGatewayPosition = gate2.center;
+        //            row.entries[i].shortestDistance = 0;
+
+        //        }
+        //        i++;
+
+
+        //    }
+        //    clusterGraph.gatewayDistanceTable[j] = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
+        //    clusterGraph.gatewayDistanceTable[j] = row;
+
+        //    //Debug.Log("j========  " + j);
+        //    if (j > 0)
+        //    {
+        //        Debug.Log("aaaaaaaaaaaaaaaaaaaa====== " + clusterGraph.gatewayDistanceTable[1].entries[2].startGatewayPosition + row.entries[2].startGatewayPosition);
+        //    }
+        //    j++;
+        //}
+
+
         //foreach (var a in clusterGraph.gatewayDistanceTable)
-       //{
-       //    foreach(var b in a.entries)
-       //    {
-       //        Debug.Log("shortestDistance =        " + b.shortestDistance);
-       //        Debug.Log("startGatewayPosition =        " + b.startGatewayPosition);
-       //        Debug.Log("endGatewayPosition =        " + b.endGatewayPosition);
+        //{
+        //    foreach(var b in a.entries)
+        //    {
+        //        Debug.Log("shortestDistance =        " + b.shortestDistance);
+        //        Debug.Log("startGatewayPosition =        " + b.startGatewayPosition);
+        //        Debug.Log("endGatewayPosition =        " + b.endGatewayPosition);
 
-       //    }
-       //    Debug.Log("ACABOU ENTRYYYYYYYYYYYYYYYY\n\n");
-       //}
+        //    }
+        //    Debug.Log("ACABOU ENTRYYYYYYYYYYYYYYYY\n\n");
+        //}
 
-       //create a new asset that will contain the ClusterGraph and save it to disk (DO NOT REMOVE THIS LINE)
-       clusterGraph.SaveToAssetDatabase();
+        //create a new asset that will contain the ClusterGraph and save it to disk (DO NOT REMOVE THIS LINE)
+        clusterGraph.SaveToAssetDatabase();
     }
 
+    private float CalculateDist(GlobalPath solution)
+    {
+        float dist = 0f;
+        List<Vector3> pathPos = solution.PathPositions;
+        for (int i = 0; i < pathPos.Count - 1; ++i)
+        {
+            dist += (pathPos[i + 1] - pathPos[i]).magnitude;
+        }
+        Debug.Log("DIIIIST = " + dist);
+        return dist;
+    }
 
     private static List<NavigationGraphNode> GetNodesHack(NavMeshPathGraph graph)
     {
