@@ -133,9 +133,9 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding
             this.TotalExploredNodes += 1;
 
             uint outConnections = (uint)currentNode.node.OutEdgeCount;
-            if (outConnections > 50)
+            if (outConnections > this.NodesPerFrame)
             {
-                outConnections = 50; //max 50 nodes visited each frame
+                outConnections = this.NodesPerFrame; //setting nodes visited each frame
             }
 
             if(Open.CountOpen() > this.MaxOpenNodes)

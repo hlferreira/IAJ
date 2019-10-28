@@ -54,7 +54,7 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
                 
                 float hNode = (node.Position - gateMin.center).magnitude;
                 float hGoal = (goalNode.Position - gate2Min.center).magnitude;
-                Debug.Log("MINNNN: " + min);
+                //Debug.Log("MINNNN: " + min);
                 return hNode + min + hGoal;
 
 

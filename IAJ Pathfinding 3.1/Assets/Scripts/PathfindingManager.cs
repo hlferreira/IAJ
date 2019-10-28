@@ -56,7 +56,8 @@ public class PathfindingManager : MonoBehaviour {
 	void Awake ()
 	{
         this.currentClickNumber = 1;
-		this.Initialize(NavigationManager.Instance.NavMeshGraphs[0], new NodeArrayAStarPathFinding(NavigationManager.Instance.NavMeshGraphs[0], new GatewayHeuristic()));
+        this.Initialize(NavigationManager.Instance.NavMeshGraphs[0], new NodeArrayAStarPathFinding(NavigationManager.Instance.NavMeshGraphs[0], new GatewayHeuristic()));
+        //this.Initialize(NavigationManager.Instance.NavMeshGraphs[0], new AStarPathfinding(NavigationManager.Instance.NavMeshGraphs[0], new SimpleUnorderedNodeList(), new ClosedDict(), new EuclideanHeuristic()));
         this.character = new DynamicCharacter(this.gameObject);
         this.dynamicFollowPath = new DynamicFollowPath
         {
