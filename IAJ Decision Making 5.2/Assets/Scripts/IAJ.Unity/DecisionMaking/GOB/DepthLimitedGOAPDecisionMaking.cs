@@ -52,7 +52,33 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
             var startTime = Time.realtimeSinceStartup;
 
             //TODO: Implement
-            throw new NotImplementedException();
+            while(this.CurrentDepth >= 0)
+            {
+                if(this.CurrentDepth >= MAX_DEPTH)
+                {
+                    var currentValue = Models[this.CurrentDepth].CalculateDiscontentment(this.Goals);
+
+                    if(currentValue < this.BestDiscontentmentValue)
+                    {
+                        this.BestDiscontentmentValue = currentValue;
+                        this.BestAction = this.ActionPerLevel[0];
+                    }
+                    currentValue -= 1;
+                    continue;
+                }
+
+                var nextAction = Models[this.CurrentDepth].GetNextAction();
+                if (nextAction != null)
+                {
+                    Models[this.CurrentDepth + 1] = Models[this.CurrentDepth].GenerateChildWorldModel();
+                    nextAction.ApplyActionEffects(Models[this.CurrentDepth + 1]);
+                    this.ActionPerLevel[this.CurrentDepth] = nextAction;
+                    this.CurrentDepth += 1;
+                }
+                else
+                    this.CurrentDepth -= 1;
+            }
+            //throw new NotImplementedException();
 
             this.TotalProcessingTime += Time.realtimeSinceStartup - startTime;
             this.InProgress = false;
