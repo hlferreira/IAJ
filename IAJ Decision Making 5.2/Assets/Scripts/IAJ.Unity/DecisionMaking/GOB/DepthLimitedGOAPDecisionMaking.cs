@@ -56,6 +56,10 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
             {
                 if(this.CurrentDepth >= MAX_DEPTH)
                 {
+                    processedActions++;
+                    if (processedActions >= 200)
+                        break;
+
                     var currentValue = Models[this.CurrentDepth].CalculateDiscontentment(this.Goals);
 
                     if(currentValue < this.BestDiscontentmentValue)
@@ -63,7 +67,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
                         this.BestDiscontentmentValue = currentValue;
                         this.BestAction = this.ActionPerLevel[0];
                     }
-                    currentValue -= 1;
+                    this.CurrentDepth -= 1;
                     continue;
                 }
 
@@ -76,12 +80,14 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
                     this.CurrentDepth += 1;
                 }
                 else
-                    this.CurrentDepth -= 1;
+                    this.CurrentDepth -= 1;    
             }
             //throw new NotImplementedException();
 
             this.TotalProcessingTime += Time.realtimeSinceStartup - startTime;
             this.InProgress = false;
+            this.TotalActionCombinationsProcessed = processedActions;
+            this.BestActionSequence = this.ActionPerLevel;
             return this.BestAction;
         }
     }

@@ -134,13 +134,13 @@ namespace Assets.Scripts
 
             foreach (var potion in GameObject.FindGameObjectsWithTag("HealthPotion"))
             {
-                //this.Actions.Add(new GetHealthPotion(this, potion));
+                this.Actions.Add(new GetHealthPotion(this, potion));
             }
 
             foreach (var enemy in GameObject.FindGameObjectsWithTag("Skeleton"))
             {
                 this.Actions.Add(new SwordAttack(this, enemy));
-                //this.Actions.Add(new DivineSmite(this, enemy));
+                this.Actions.Add(new DivineSmite(this, enemy));
             }
 
             foreach (var enemy in GameObject.FindGameObjectsWithTag("Orc"))
